@@ -35,7 +35,7 @@ app.use('/api', limiter);
 
 app.use(
   express.json({
-    limit: '10k',
+    limit: '10kb',
   })
 );
 

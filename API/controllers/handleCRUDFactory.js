@@ -1,6 +1,7 @@
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const httpStatus = require('http-status');
+const APIFeatures = require('../utils/apiFeatures');
 
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -69,14 +70,19 @@ exports.getOne = (Model, populateOptions) =>
     });
   });
 
-exports.getAll = (Model) =>
+exports.getAll = (Model, customFilter = {}) =>
   catchAsync(async (req, res, next) => {
-    // To allow for nested GET reviews on tour (hack)
-    let filter = {};
-    if (req.params.id)
+    let filter = { ...customFilter };
+
+    if (filter['uploadedBy'] === undefined && req.user) {
       filter = {
-        id: req.params.id,
+        uploadedBy: req.user._id,
       };
+    }
+
+    if (req.params.id) {
+      filter.id = req.params.id;
+    }
 
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()

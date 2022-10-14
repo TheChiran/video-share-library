@@ -1,9 +1,15 @@
 const testRoute = require('./test.routes');
+const userRoute = require('./user.routes');
+const videoRoute = require('./video.routes');
+
 const express = require('express');
 
 const router = express.Router();
 
-const defaultRoutes = [{ path: '/default-test', route: testRoute }];
+const defaultRoutes = [
+  { path: '/users', route: userRoute },
+  { path: '/videos', route: videoRoute },
+];
 
 const devRoutes = [...defaultRoutes, ...[{ path: '/test', route: testRoute }]];
 

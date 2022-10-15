@@ -8,7 +8,7 @@ const videoSchema = new mongoose.Schema(
       required: [true, 'Please provide youtube url link'],
       validate: [validator.isURL, 'Please provide a valid url'],
     },
-    watched: {
+    total_view: {
       type: Number,
       default: 0,
       required: false,

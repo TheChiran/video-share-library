@@ -19,16 +19,20 @@ router
   )
   .get(videoController.getList);
 
+router
+  .route('/:id')
+  .get(videoController.increaseViewCount, videoController.getOne);
+
 router.use(authController.protect);
 
 router.get('/by-user', videoController.getListByUser);
-router.route('/:id').get(videoController.getOne);
 
 router
   .route('/:id')
   .patch(videoController.updateOne)
-  .delete(videoController.deleteOne)
-  .patch(videoController.likeVideo)
-  .patch(videoController.dislikeVideo);
+  .delete(videoController.deleteOne);
+
+router.patch('/:id/like', videoController.likeVideo);
+router.patch('/:id/dislike', videoController.dislikeVideo);
 
 module.exports = router;

@@ -1,12 +1,16 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 
 const VideoItem = (video) => {
+  const navigate = useNavigate();
+
+  const navigateURL = (url) => {
+    navigate(`${url}`);
+  };
+
   return (
     <React.Fragment>
       <CardContent>
@@ -17,7 +21,12 @@ const VideoItem = (video) => {
         ></iframe>
       </CardContent>
       <CardActions>
-        <Button size="small">Click to like/dislike</Button>
+        <Button
+          size="small"
+          onClick={() => navigateURL(`/videos/${video.video._id}`)}
+        >
+          Click to like/dislike
+        </Button>
       </CardActions>
     </React.Fragment>
   );

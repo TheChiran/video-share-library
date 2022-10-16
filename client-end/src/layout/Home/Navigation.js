@@ -5,9 +5,15 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navigation() {
+  const navigate = useNavigate();
+
+  const navigateURL = (url) => {
+    navigate(`${url}`);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -24,13 +30,18 @@ export default function Navigation() {
             component="div"
             sx={{ flexGrow: 1 }}
           ></Typography>
-          <Link to="/login">
-            <Button color="inherit">Login</Button>
-          </Link>
+          {localStorage.getItem("accessToken") && (
+            <Button color="inherit" onClick={() => navigateURL("/dashboard")}>
+              Dashboard
+            </Button>
+          )}
+          <Button color="inherit" onClick={() => navigateURL("/login")}>
+            Login
+          </Button>
 
-          <Link to="/login">
-            <Button color="inherit">Register</Button>
-          </Link>
+          <Button color="inherit" onClick={() => navigateURL("/register")}>
+            Register
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
